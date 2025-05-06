@@ -5,7 +5,7 @@ This is a project website. This is a website about me, my interests and works.
 ## Goals
 
 * Use a flake for a dev environment
-* ---pick between hugo, hexo, 11ty or zola---
+* ~~pick between hugo, hexo, 11ty or zola~~
 * have a blog section
 * projects section with cards (thumbnail) for each work
 * toggle light/dark theme (default to dark)
