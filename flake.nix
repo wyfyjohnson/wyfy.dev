@@ -3,14 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    utils.url = "github:numtide/flake-utils";
+    blowfish-tool = {
+      url ="github:nunocoracao/blowfish";
+      flake = false;
+    };
   };
-
-  outputs = { self, nixpkgs }:
-  let
-    pkgs = nixpkgs.legacyPackages."x86_64-linux";
-  in
-  {
-    devShells."x86_64-linux".default =
-      import 
-  };
+  outputs = {}:
+    utils.lib.eachDefaultSystem
+      (system:
+        let
+          pkgs = import nixpgs {
+            inherit system;
+          };
+        in
+        {
+          
+        })
 }
