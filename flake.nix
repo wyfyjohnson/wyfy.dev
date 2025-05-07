@@ -18,6 +18,7 @@
           };
         in
         {
+        devShells.default = pkgs.mkShell { packages = [ pkgs.bashInteractive ]; };
           
-        })
+        });
 }
