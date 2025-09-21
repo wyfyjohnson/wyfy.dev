@@ -3,7 +3,7 @@ languageCode = 'en-us'
 title = 'My Personal Website'
 
 # Theme configuration (adjust based on your chosen theme)
-# theme = 'PaperMod'  # Uncomment if using a theme
+ theme = 'Blowfish'
 
 [params]
   author = "Wyatt Johnson"

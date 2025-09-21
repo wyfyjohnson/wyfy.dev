@@ -1,14 +1,11 @@
 {
-  description = "A flake for my wyfy.dev dev environment";
+  description = "My Hugo Website";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    utils.url = "github:numtide/flake-utils";
-    blowfish-tool = {
-      url = "github:nunocoracao/blowfish";
-      flake = false;
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
+
   outputs = {
     self,
     nixpkgs,
@@ -17,30 +14,19 @@
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
 
-      # Hugo theme - you can add your theme as a flake input or git submodule
-      # Example: using a popular theme
-      hugoTheme = pkgs.fetchFromGitHub {
-        owner = "adityatelange";
-        repo = "hugo-PaperMod";
-        rev = "master";
-        hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Replace with actual hash
-      };
-
       # Website configuration
-      siteName = "my-website";
-      baseURL = "https://example.com";
+      siteName = "wyfy-dev";
+      baseURL = "https://wyfy.dev";
     in {
       # Development shell with Hugo and useful tools
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
           hugo
-          go # For Hugo modules if needed
           git
           nodejs # For some themes/tools
 
           # Optional: deployment tools
           rsync
-          netlify-cli
 
           # Optional: image optimization
           imagemagick
@@ -56,7 +42,6 @@
           echo "  hugo server -D              - Start development server with drafts"
           echo "  hugo new posts/my-post.md   - Create new post"
           echo "  nix build                   - Build production site"
-          echo "  nix run .#serve            - Serve production build"
           echo ""
 
           # Create site if it doesn't exist
@@ -79,61 +64,12 @@
           nativeBuildInputs = with pkgs; [hugo git];
 
           buildPhase = ''
-            # Copy theme if using external theme
-            # mkdir -p themes
-            # cp -r ${hugoTheme} themes/PaperMod
-
             # Build site
             hugo --minify --baseURL "${baseURL}"
           '';
 
           installPhase = ''
             cp -r public $out
-          '';
-        };
-
-        # Docker image for deployment
-        docker = pkgs.dockerTools.buildImage {
-          name = siteName;
-          tag = "latest";
-
-          copyToRoot = pkgs.buildEnv {
-            name = "image-root";
-            paths = with pkgs; [
-              bashInteractive
-              coreutils
-              nginx
-            ];
-            pathsToLink = ["/bin" "/etc/nginx"];
-          };
-
-          config = {
-            Cmd = ["nginx" "-g" "daemon off;"];
-            ExposedPorts = {
-              "80/tcp" = {};
-            };
-            WorkingDir = "/usr/share/nginx/html";
-          };
-
-          runAsRoot = ''
-            #!${pkgs.runtimeShell}
-            mkdir -p /usr/share/nginx/html
-            cp -r ${self.packages.${system}.website}/* /usr/share/nginx/html/
-
-            cat > /etc/nginx/nginx.conf << 'EOF'
-            events { worker_connections 1024; }
-            http {
-              include /etc/nginx/mime.types;
-              server {
-                listen 80;
-                root /usr/share/nginx/html;
-                index index.html;
-                location / {
-                  try_files $uri $uri/ /404.html;
-                }
-              }
-            }
-            EOF
           '';
         };
       };
@@ -147,22 +83,6 @@
             echo "Serving website at http://localhost:8080"
             ${pkgs.python3}/bin/python -m http.server 8080 \
               --directory ${self.packages.${system}.website}
-          ''}";
-        };
-
-        # Deploy via rsync
-        deploy = {
-          type = "app";
-          program = "${pkgs.writeShellScript "deploy" ''
-            if [ -z "$DEPLOY_HOST" ] || [ -z "$DEPLOY_PATH" ]; then
-              echo "Set DEPLOY_HOST and DEPLOY_PATH environment variables"
-              exit 1
-            fi
-
-            echo "Deploying to $DEPLOY_HOST:$DEPLOY_PATH"
-            ${pkgs.rsync}/bin/rsync -avz --delete \
-              ${self.packages.${system}.website}/ \
-              "$DEPLOY_HOST:$DEPLOY_PATH"
           ''}";
         };
 
