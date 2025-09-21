@@ -1,0 +1,32 @@
+# Hugo default output
+/public/
+/resources/_gen/
+
+# Nix
+result
+result-*
+
+# Hugo lock file
+.hugo_build.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Node (if using npm for theme tools)
+node_modules/
+package-lock.json
+
+# Environment files
+.env
+.env.local
