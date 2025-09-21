@@ -1,15 +1,21 @@
 {
-  description = "My Hugo Website";
+  description = "Wyfy.dev";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    # Add Blowfish theme as an input
+    blowfish-theme = {
+      url = "github:nunocoracao/blowfish";
+      flake = false;
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    blowfish-theme,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
@@ -63,9 +69,14 @@
 
           nativeBuildInputs = with pkgs; [hugo git];
 
+          preBuild = ''
+            mkdir -p themes
+            ln -s ${blowfish-theme} themes/blowfish
+          '';
+
           buildPhase = ''
-            # Build site
-            hugo --minify --baseURL "${baseURL}"
+            # Build site with theme
+            hugo --minify --baseURL "${baseURL}" --theme blowfish
           '';
 
           installPhase = ''
@@ -76,6 +87,30 @@
 
       # Useful apps/scripts
       apps = {
+        setup-blowfish = {
+          type = "app";
+          program = "${pkgs.writeShellScript "setup-blowfish" ''
+            echo "Setting up Blowfish theme configuration..."
+
+            # Copy example site config
+            cp -r ${blowfish-theme}/exampleSite/config .
+            cp -r ${blowfish-theme}/exampleSite/content .
+            mkdir -p assets static
+
+            # Copy any assets from example site
+            if [ -d "${blowfish-theme}/exampleSite/assets" ]; then
+              cp -r ${blowfish-theme}/exampleSite/assets/* assets/ 2>/dev/null || true
+            fi
+
+            echo "✓ Copied Blowfish example configuration"
+            echo ""
+            echo "Next steps:"
+            echo "1. Edit config/_default/config.toml with your details"
+            echo "2. Edit config/_default/params.toml for theme settings"
+            echo "3. Edit config/_default/languages.en.toml for content"
+            echo "4. Run: hugo server -D"
+          ''}";
+        };
         # Serve the built website locally
         serve = {
           type = "app";
