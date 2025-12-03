@@ -69,14 +69,14 @@
 
           nativeBuildInputs = with pkgs; [hugo git];
 
-          preBuild = ''
-            mkdir -p themes
-            ln -s ${blowfish-theme} themes/blowfish
+          postUnpack = ''
+            mkdir -p $sourceRoot/themes
+            ln -s ${blowfish-theme} $sourceRoot/homethemes/blowfish
           '';
 
           buildPhase = ''
             # Build site with theme
-            hugo --minify --baseURL "${baseURL}" --theme blowfish
+            hugo --minify --baseURL "${baseURL}"
           '';
 
           installPhase = ''
