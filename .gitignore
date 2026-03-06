@@ -34,6 +34,7 @@ result-*
 
 # AI Assistant Documentation
 CLAUDE.md
+DEPLOYMENT.md
 
 # Hugo backup (migration from Hugo to SvelteKit)
 hugo-backup/
