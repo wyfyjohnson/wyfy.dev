@@ -28,6 +28,7 @@
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
           hugo
+          go
           git
           nodejs # For some themes/tools
 
@@ -67,7 +68,7 @@
 
           src = ./.;
 
-          nativeBuildInputs = with pkgs; [hugo git];
+          nativeBuildInputs = with pkgs; [hugo go git];
 
           postUnpack = ''
             mkdir -p $sourceRoot/themes
