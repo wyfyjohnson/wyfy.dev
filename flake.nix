@@ -1,36 +1,36 @@
 {
-  description = "Wyfy.dev";
+  description = "Wyfy.dev - SvelteKit Portfolio & Blog";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    # Add Blowfish theme as an input
-    blowfish-theme = {
-      url = "github:nunocoracao/blowfish";
-      flake = false;
-    };
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
-    blowfish-theme,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
+      # Allow unfree packages (needed for WebStorm)
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       # Website configuration
       siteName = "wyfy-dev";
       baseURL = "https://wyfy.dev";
     in {
-      # Development shell with Hugo and useful tools
+      # Development shell with SvelteKit and useful tools
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          hugo
-          go
+          nodejs_22
+          nodePackages.npm
           git
-          nodejs # For some themes/tools
+
+          # IDE
+          jetbrains.webstorm
 
           # Optional: deployment tools
           rsync
@@ -42,18 +42,20 @@
         ];
 
         shellHook = ''
-          echo "🚀 Hugo development environment"
+          echo "🚀 SvelteKit development environment"
           echo ""
           echo "Useful commands:"
-          echo "  hugo new site ${siteName}  - Create new site"
-          echo "  hugo server -D              - Start development server with drafts"
-          echo "  hugo new posts/my-post.md   - Create new post"
-          echo "  nix build                   - Build production site"
+          echo "  npm install          - Install dependencies"
+          echo "  npm run dev          - Start development server"
+          echo "  npm run build        - Build production site"
+          echo "  npm run preview      - Preview production build"
+          echo "  nix run .#new-post   - Create new blog post"
+          echo "  webstorm .           - Open project in WebStorm IDE"
           echo ""
 
-          # Create site if it doesn't exist
-          if [ ! -f "config.toml" ] && [ ! -f "hugo.toml" ] && [ ! -f "config.yaml" ]; then
-            echo "No Hugo site found. Initialize with: hugo new site . --force"
+          # Check if node_modules exists
+          if [ ! -d "node_modules" ]; then
+            echo "📦 Dependencies not installed. Run: npm install"
           fi
         '';
       };
@@ -68,61 +70,42 @@
 
           src = ./.;
 
-          nativeBuildInputs = with pkgs; [hugo go git];
-
-          postUnpack = ''
-            mkdir -p $sourceRoot/themes
-            ln -s ${blowfish-theme} $sourceRoot/homethemes/blowfish
-          '';
+          nativeBuildInputs = with pkgs; [
+            nodejs_22
+            nodePackages.npm
+          ];
 
           buildPhase = ''
-            # Build site with theme
-            hugo --minify --baseURL "${baseURL}"
+            # Set npm cache directory
+            export npm_config_cache=$TMPDIR/npm-cache
+            export HOME=$TMPDIR
+
+            # Install dependencies
+            npm ci --prefer-offline --no-audit
+
+            # Build site
+            npm run build
           '';
 
           installPhase = ''
-            cp -r public $out
+            cp -r build $out
           '';
         };
       };
 
       # Useful apps/scripts
       apps = {
-        setup-blowfish = {
-          type = "app";
-          program = "${pkgs.writeShellScript "setup-blowfish" ''
-            echo "Setting up Blowfish theme configuration..."
-
-            # Copy example site config
-            cp -r ${blowfish-theme}/exampleSite/config .
-            cp -r ${blowfish-theme}/exampleSite/content .
-            mkdir -p assets static
-
-            # Copy any assets from example site
-            if [ -d "${blowfish-theme}/exampleSite/assets" ]; then
-              cp -r ${blowfish-theme}/exampleSite/assets/* assets/ 2>/dev/null || true
-            fi
-
-            echo "✓ Copied Blowfish example configuration"
-            echo ""
-            echo "Next steps:"
-            echo "1. Edit config/_default/config.toml with your details"
-            echo "2. Edit config/_default/params.toml for theme settings"
-            echo "3. Edit config/_default/languages.en.toml for content"
-            echo "4. Run: hugo server -D"
-          ''}";
-        };
         # Serve the built website locally
         serve = {
           type = "app";
           program = "${pkgs.writeShellScript "serve" ''
-            echo "Serving website at http://localhost:8080"
-            ${pkgs.python3}/bin/python -m http.server 8080 \
-              --directory ${self.packages.${system}.website}
+            echo "Serving production build at http://localhost:4173"
+            cd ${self.packages.${system}.website}
+            ${pkgs.nodejs_22}/bin/npx vite preview --port 4173
           ''}";
         };
 
-        # Create new post with timestamp
+        # Create new blog post with timestamp
         new-post = {
           type = "app";
           program = "${pkgs.writeShellScript "new-post" ''
@@ -133,11 +116,29 @@
 
             POST_TITLE="$1"
             POST_DATE=$(date +%Y-%m-%d)
-            POST_SLUG=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-            POST_FILE="content/posts/$POST_DATE-$POST_SLUG.md"
+            POST_SLUG=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed 's/[^a-z0-9-]//g')
+            POST_FILE="src/posts/$POST_DATE-$POST_SLUG.md"
 
-            ${pkgs.hugo}/bin/hugo new "posts/$POST_DATE-$POST_SLUG.md"
-            echo "Created: $POST_FILE"
+            # Create the post file with frontmatter
+            cat > "$POST_FILE" <<EOF
+---
+title: $POST_TITLE
+description: Add a brief description here
+date: '$POST_DATE'
+categories:
+  - blog
+published: false
+---
+
+Write your content here...
+EOF
+
+            echo "✓ Created: $POST_FILE"
+            echo ""
+            echo "Next steps:"
+            echo "1. Edit the post content and metadata"
+            echo "2. Set published: true when ready"
+            echo "3. Run: npm run dev"
           ''}";
         };
       };

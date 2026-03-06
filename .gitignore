@@ -1,33 +1,39 @@
-# Hugo default output
-/public/
-/resources/_gen/
+node_modules
 
-# Nix
-result
-result-*
+# Output
+.output
+.vercel
+/.svelte-kit
+/build
 
-# Hugo lock file
-.hugo_build.lock
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
-# Editor directories and files
-.vscode/
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Nix
+.direnv/
+result
+result-*
+
+# IDEs
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
 
-# Logs
-*.log
+# AI Assistant Documentation
+CLAUDE.md
 
-# Node (if using npm for theme tools)
-node_modules/
-package-lock.json
-
-# Environment files
-.env
-.env.local
-.direnv/*
+# Hugo backup (migration from Hugo to SvelteKit)
+hugo-backup/

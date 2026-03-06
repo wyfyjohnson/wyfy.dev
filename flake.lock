@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "blowfish-theme": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1757975169,
-        "narHash": "sha256-nU0vvuDvagbmEZsnudpOIerjJQ3UalY1DOpfIIvy81g=",
-        "owner": "nunocoracao",
-        "repo": "blowfish",
-        "rev": "3e652b3749f3f46b26258662599649d10dba2708",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nunocoracao",
-        "repo": "blowfish",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -52,7 +36,6 @@
     },
     "root": {
       "inputs": {
-        "blowfish-theme": "blowfish-theme",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       }
