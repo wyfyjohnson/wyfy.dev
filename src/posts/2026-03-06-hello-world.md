@@ -1,7 +1,7 @@
 ---
 title: Hello World
 description: Welcome to my new website built with SvelteKit and Nix!
-date: '2024-01-20'
+date: '2026-03-06'
 categories:
   - introduction
   - meta
