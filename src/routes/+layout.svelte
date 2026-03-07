@@ -16,6 +16,7 @@
 <svelte:head>
 	<title>{Name}</title>
 	<link rel="icon" href={profilePicture} />
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
 </svelte:head>
 
 <ThemeSelector />
