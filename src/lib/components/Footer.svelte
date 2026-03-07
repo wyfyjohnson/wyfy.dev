@@ -18,6 +18,6 @@
 		{/each}
 	</div>
 	<div class="flex items-center justify-center pb-3 text-center text-sm font-semibold">
-		<p class="text-cat_quaternary">{`Made with   ❤️  \t by ${Name.split(' ')[0]}`}</p>
+		<p class="text-cat_quaternary">{`Free Palestine!   🇵🇸 `}</p>
 	</div>
 </footer>

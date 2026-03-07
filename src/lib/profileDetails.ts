@@ -13,15 +13,20 @@ export const Bio = `Welcome to my personal website! I write about software devel
 
 // Interests for scrolling marquee - customize with your interests!
 export const Interests = [
-	'Software Development',
+	'Free &',
 	'Open Source',
+    'Software',
+    'Gentoo',
 	'NixOS',
 	'Linux',
 	'Rust',
-	'TypeScript',
-	'SvelteKit',
-	'Web Development',
-	'System Administration'
+    'Java',
+    'Python',
+	'Minecraft',
+	'Path of Exile',
+	'Learning',
+	'Gardening',
+    'Cooking'
 ];
 
 // Work experience - customize this section with your actual work history
@@ -47,16 +52,16 @@ export const Projects = [
 	{
 		project: 'Huginn',
 		details: [
-			'Add details about your Huginn project here',
-			'Describe features, tech stack, and what makes it interesting'
+			'This is yet another fetch program. This is a newbie attempt at neofetch meets rust.',
+			'I wanted the project to ship with to display something more than just ascii art. So I started to learn what I could do to make that happen.'
 		],
 		link: '#' // Replace with actual link
 	},
 	{
-		project: 'Minecraft Mods',
+		project: 'Backpackage',
 		details: [
-			'Add details about your Minecraft mods',
-			'What mods have you created? What do they do?'
+			'I wanted to see if I could learn Java again and see if I could be comfortable. Like I was years ago.',
+			"This mod adds a backpack to the Create mod suite. It's a fantastic mod that just needed one more thing, a backpack!"
 		],
 		link: '#' // Replace with actual link
 	}
@@ -66,12 +71,12 @@ export const Projects = [
 export const Links = [
 	{
 		name: 'Codeberg',
-		url: 'https://codeberg.org/yourusername', // Update with your username
-		icon: Github
+		url: 'https://codeberg.org/wyfy', // Update with your username
+		icon: Codeberg
 	},
 	{
 		name: 'GitHub',
-		url: 'https://github.com/yourusername', // Update with your username
+		url: 'https://github.com/wyfyjohnson', // Update with your username
 		icon: Github
 	},
 	{
@@ -81,7 +86,7 @@ export const Links = [
 	},
 	{
 		name: 'Source Code',
-		url: 'https://codeberg.org/yourusername/wyfy.dev', // Link to this site's source
+		url: 'https://codeberg.org/wyfy/wyfy.dev', // Link to this site's source
 		icon: ExternalLink
 	}
 ];
