@@ -41,6 +41,7 @@
 	"dependencies": {
 		"@fontsource-variable/jetbrains-mono": "^5.1.2",
 		"@fontsource-variable/manrope": "^5.1.1",
+		"@fontsource-variable/mulish": "^5.2.8",
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.0.7",
 		"bits-ui": "^0.21.16",

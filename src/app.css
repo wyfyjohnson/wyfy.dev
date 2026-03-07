@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/mulish';
 
 @config '../tailwind.config.js';
 
@@ -11,14 +12,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-	/* Use system Maple Mono font */
-	@font-face {
-		font-family: 'Maple Mono';
-		src: local('Maple Mono'), local('MapleMono');
-		font-weight: 100 900;
-		font-style: normal;
-	}
-
 	*,
 	::after,
 	::before,

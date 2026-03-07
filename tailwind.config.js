@@ -63,8 +63,25 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				mono: ['Maple Mono', 'monospace'],
-				sans: ['Maple Mono', ...fontFamily.sans]
+				sans: ['Mulish Variable', ...fontFamily.sans]
+			},
+			typography: {
+				DEFAULT: {
+					css: {
+						h2: {
+							'text-transform': 'uppercase',
+							'border-bottom': '1px solid currentColor',
+							'padding-bottom': '0.25rem'
+						},
+						'h2::before': {
+							content: '"// "',
+							color: 'rgb(var(--cat-tertiary))'
+						},
+						'ul > li::marker': {
+							content: '"■  "'
+						}
+					}
+				}
 			}
 		}
 	},
