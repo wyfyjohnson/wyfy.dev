@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages and Codeberg Pages
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
         with:
           path: build
 
-  deploy:
+  deploy-github:
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -47,3 +47,45 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-codeberg:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Codeberg Pages
+        run: |
+          cd build
+          git init -b main
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Deploy $(date '+%Y-%m-%d %H:%M:%S')"
+          git remote add codeberg-pages https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/wyfy/pages.git
+          git push -f codeberg-pages main
+
+  mirror-to-codeberg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mirror to Codeberg
+        run: |
+          git remote add codeberg https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/wyfy/wyfy.dev.git
+          git push -f codeberg main

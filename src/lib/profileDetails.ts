@@ -11,6 +11,19 @@ export const Profession = 'Learner';
 
 export const Bio = `Welcome to my personal website! I write about software development, open source projects, and my various technical adventures. Check out my blog and projects below.`;
 
+// Interests for scrolling marquee - customize with your interests!
+export const Interests = [
+	'Software Development',
+	'Open Source',
+	'NixOS',
+	'Linux',
+	'Rust',
+	'TypeScript',
+	'SvelteKit',
+	'Web Development',
+	'System Administration'
+];
+
 // Work experience - customize this section with your actual work history
 export const Work = [
 	// Example format - replace or remove as needed:

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import Hero from '$lib/components/Hero.svelte';
 	import Main from '$lib/components/Main.svelte';
+	import Marquee from '$lib/components/Marquee.svelte';
+	import { Interests } from '$lib/profileDetails';
 
 	let { data } = $props();
 </script>
 
 <Hero />
+<Marquee items={Interests} />
 <Main />
 
 <div class="mx-4 mb-10">
