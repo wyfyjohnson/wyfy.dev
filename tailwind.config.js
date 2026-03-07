@@ -15,13 +15,13 @@ const config = {
 		},
 		extend: {
 			colors: {
-				// CATPPUCCIN MACCHIATO
-				cat_primary: '#a6da95',    // green
-				cat_secondary: '#8aadf4',  // blue
-				cat_tertiary: '#eed49f',   // yellow
-				cat_quaternary: '#c6a0f6', // mauve
-				cat_base: '#24273a',       // base
-				cat_text: '#cad3f5',       // text
+				// CATPPUCCIN - Dynamic colors that change with theme
+				cat_primary: 'rgb(var(--cat-primary) / <alpha-value>)',
+				cat_secondary: 'rgb(var(--cat-secondary) / <alpha-value>)',
+				cat_tertiary: 'rgb(var(--cat-tertiary) / <alpha-value>)',
+				cat_quaternary: 'rgb(var(--cat-quaternary) / <alpha-value>)',
+				cat_base: 'rgb(var(--cat-base) / <alpha-value>)',
+				cat_text: 'rgb(var(--cat-text) / <alpha-value>)',
 
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',
@@ -63,8 +63,8 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				jetbrains: [' JetBrains Mono Variable '],
-				sans: [...fontFamily.sans]
+				mono: ['Maple Mono', 'monospace'],
+				sans: ['Maple Mono', ...fontFamily.sans]
 			}
 		}
 	},

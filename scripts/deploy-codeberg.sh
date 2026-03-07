@@ -7,6 +7,9 @@ npm run build
 echo "Deploying to Codeberg Pages..."
 cd build
 
+# Create .domains file for custom domain
+echo "wyfy.dev" > .domains
+
 # Check if git repo exists
 if [ ! -d ".git" ]; then
     echo "Initializing git repository..."

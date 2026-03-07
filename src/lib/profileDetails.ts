@@ -1,5 +1,6 @@
 import profile from '$lib/images/profile.webp';
 import { Github, Mail, ExternalLink } from 'lucide-svelte';
+import CodebergIcon from '$lib/components/CodebergIcon.svelte';
 
 export const profilePicture = profile;
 
@@ -72,7 +73,7 @@ export const Links = [
 	{
 		name: 'Codeberg',
 		url: 'https://codeberg.org/wyfy', // Update with your username
-		icon: Codeberg
+		icon: CodebergIcon
 	},
 	{
 		name: 'GitHub',

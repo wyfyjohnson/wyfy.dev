@@ -8,7 +8,7 @@
 <div class="mt-2 flex items-center justify-between lg:justify-self-auto text-3xl font-semibold lg:text-4xl">
 	<div class="flex items-center">
 		<Avatar />
-		<h1 class="ml-4 font-jetbrains text-cat_tertiary">{Name}</h1>
+		<h1 class="ml-4 font-mono text-cat_tertiary">{Name}</h1>
 	</div>
 	<OnlineStatus />
 </div>

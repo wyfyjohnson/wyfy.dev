@@ -1,5 +1,3 @@
-@import '@fontsource-variable/jetbrains-mono' layer(base);
-
 @import 'tailwindcss';
 
 @config '../tailwind.config.js';
@@ -13,6 +11,14 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+	/* Use system Maple Mono font */
+	@font-face {
+		font-family: 'Maple Mono';
+		src: local('Maple Mono'), local('MapleMono');
+		font-weight: 100 900;
+		font-style: normal;
+	}
+
 	*,
 	::after,
 	::before,
@@ -23,68 +29,167 @@
 }
 
 @layer base {
-	:root {
+	/* ============================================
+	   CATPPUCCIN THEME (Default)
+	   ============================================ */
+
+	/* Catppuccin Latte (Light) */
+	:root,
+	:root[data-theme='catppuccin'] {
+		--cat-primary: 64 160 43;      /* green */
+		--cat-secondary: 30 102 245;   /* blue */
+		--cat-tertiary: 223 142 29;    /* yellow */
+		--cat-quaternary: 136 57 239;  /* mauve */
+		--cat-base: 239 241 245;       /* base */
+		--cat-text: 76 79 105;         /* text */
+
 		--background: 0 0% 100%;
 		--foreground: 20 14.3% 4.1%;
-
 		--muted: 60 4.8% 95.9%;
 		--muted-foreground: 25 5.3% 44.7%;
-
 		--popover: 0 0% 100%;
 		--popover-foreground: 20 14.3% 4.1%;
-
 		--card: 0 0% 100%;
 		--card-foreground: 20 14.3% 4.1%;
-
 		--border: 20 5.9% 90%;
 		--input: 20 5.9% 90%;
-
 		--primary: 24 9.8% 10%;
 		--primary-foreground: 60 9.1% 97.8%;
-
 		--secondary: 60 4.8% 95.9%;
 		--secondary-foreground: 24 9.8% 10%;
-
 		--accent: 60 4.8% 95.9%;
 		--accent-foreground: 24 9.8% 10%;
-
 		--destructive: 0 72.2% 50.6%;
 		--destructive-foreground: 60 9.1% 97.8%;
-
 		--ring: 20 14.3% 4.1%;
-
 		--radius: 0.5rem;
 	}
 
-	.dark {
+	/* Catppuccin Macchiato (Dark) - DEFAULT */
+	.dark,
+	:root[data-theme='catppuccin'].dark {
+		--cat-primary: 166 218 149;    /* green */
+		--cat-secondary: 138 173 244;  /* blue */
+		--cat-tertiary: 238 212 159;   /* yellow */
+		--cat-quaternary: 198 160 246; /* mauve */
+		--cat-base: 36 39 58;          /* base */
+		--cat-text: 202 211 245;       /* text */
+
 		--background: 20 14.3% 4.1%;
 		--foreground: 60 9.1% 97.8%;
-
 		--muted: 12 6.5% 15.1%;
 		--muted-foreground: 24 5.4% 63.9%;
-
 		--popover: 20 14.3% 4.1%;
 		--popover-foreground: 60 9.1% 97.8%;
-
 		--card: 20 14.3% 4.1%;
 		--card-foreground: 60 9.1% 97.8%;
-
 		--border: 12 6.5% 15.1%;
 		--input: 12 6.5% 15.1%;
-
 		--primary: 60 9.1% 97.8%;
 		--primary-foreground: 24 9.8% 10%;
-
 		--secondary: 12 6.5% 15.1%;
 		--secondary-foreground: 60 9.1% 97.8%;
-
 		--accent: 12 6.5% 15.1%;
 		--accent-foreground: 60 9.1% 97.8%;
-
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 60 9.1% 97.8%;
-
 		--ring: 24 5.7% 82.9%;
+	}
+
+	/* ============================================
+	   GRUVBOX THEME
+	   ============================================ */
+
+	/* Gruvbox Light */
+	:root[data-theme='gruvbox'] {
+		--cat-primary: 152 151 26;     /* green */
+		--cat-secondary: 69 133 136;   /* blue */
+		--cat-tertiary: 215 153 33;    /* yellow */
+		--cat-quaternary: 177 98 134;  /* purple */
+		--cat-base: 251 241 199;       /* bg0 */
+		--cat-text: 60 56 54;          /* fg */
+	}
+
+	/* Gruvbox Dark */
+	:root[data-theme='gruvbox'].dark {
+		--cat-primary: 184 187 38;     /* green */
+		--cat-secondary: 131 165 152;  /* blue */
+		--cat-tertiary: 250 189 47;    /* yellow */
+		--cat-quaternary: 211 134 155; /* purple */
+		--cat-base: 40 40 40;          /* bg */
+		--cat-text: 235 219 178;       /* fg */
+	}
+
+	/* ============================================
+	   NORD THEME
+	   ============================================ */
+
+	/* Nord Light */
+	:root[data-theme='nord'] {
+		--cat-primary: 163 190 140;    /* green */
+		--cat-secondary: 136 192 208;  /* blue */
+		--cat-tertiary: 235 203 139;   /* yellow */
+		--cat-quaternary: 180 142 173; /* purple */
+		--cat-base: 236 239 244;       /* snow storm */
+		--cat-text: 46 52 64;          /* polar night */
+	}
+
+	/* Nord Dark */
+	:root[data-theme='nord'].dark {
+		--cat-primary: 163 190 140;    /* green */
+		--cat-secondary: 136 192 208;  /* blue */
+		--cat-tertiary: 235 203 139;   /* yellow */
+		--cat-quaternary: 180 142 173; /* purple */
+		--cat-base: 46 52 64;          /* polar night */
+		--cat-text: 236 239 244;       /* snow storm */
+	}
+
+	/* ============================================
+	   SOLARIZED THEME
+	   ============================================ */
+
+	/* Solarized Light */
+	:root[data-theme='solarized'] {
+		--cat-primary: 133 153 0;      /* green */
+		--cat-secondary: 38 139 210;   /* blue */
+		--cat-tertiary: 181 137 0;     /* yellow */
+		--cat-quaternary: 211 54 130;  /* magenta */
+		--cat-base: 253 246 227;       /* base3 */
+		--cat-text: 101 123 131;       /* base00 */
+	}
+
+	/* Solarized Dark */
+	:root[data-theme='solarized'].dark {
+		--cat-primary: 133 153 0;      /* green */
+		--cat-secondary: 38 139 210;   /* blue */
+		--cat-tertiary: 181 137 0;     /* yellow */
+		--cat-quaternary: 211 54 130;  /* magenta */
+		--cat-base: 0 43 54;           /* base03 */
+		--cat-text: 147 161 161;       /* base0 */
+	}
+
+	/* ============================================
+	   TOKYO NIGHT THEME
+	   ============================================ */
+
+	/* Tokyo Night Light */
+	:root[data-theme='tokyo-night'] {
+		--cat-primary: 51 153 51;      /* green */
+		--cat-secondary: 52 122 189;   /* blue */
+		--cat-tertiary: 143 94 21;     /* yellow */
+		--cat-quaternary: 150 120 182; /* purple */
+		--cat-base: 213 214 219;       /* bg */
+		--cat-text: 52 59 88;          /* fg */
+	}
+
+	/* Tokyo Night Dark */
+	:root[data-theme='tokyo-night'].dark {
+		--cat-primary: 158 206 106;    /* green */
+		--cat-secondary: 122 162 247;  /* blue */
+		--cat-tertiary: 224 175 104;   /* yellow */
+		--cat-quaternary: 187 154 247; /* purple */
+		--cat-base: 26 27 38;          /* bg */
+		--cat-text: 192 202 245;       /* fg */
 	}
 }
 

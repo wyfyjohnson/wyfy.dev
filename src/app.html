@@ -3,6 +3,18 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			// Set theme before page renders to prevent flash
+			(function() {
+				const mode = localStorage.getItem('mode') || 'dark';
+				const theme = localStorage.getItem('theme') || 'catppuccin';
+
+				if (mode === 'dark') {
+					document.documentElement.classList.add('dark');
+				}
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 <body class="flex min-h-screen flex-col items-center justify-center px-2.5">

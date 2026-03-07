@@ -69,6 +69,7 @@ jobs:
       - name: Deploy to Codeberg Pages
         run: |
           cd build
+          echo "wyfy.dev" > .domains
           git init -b main
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
