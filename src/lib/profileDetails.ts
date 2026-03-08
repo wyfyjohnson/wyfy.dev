@@ -56,7 +56,7 @@ export const Projects = [
 			'This is yet another fetch program. This is a newbie attempt at neofetch meets rust.',
 			'I wanted the project to ship with to display something more than just ascii art. So I started to learn what I could do to make that happen.'
 		],
-		link: '#' // Replace with actual link
+		link: 'https://codeberg.org/wyfy/huginn' // Replace with actual link
 	},
 	{
 		project: 'Backpackage',
@@ -64,9 +64,16 @@ export const Projects = [
 			'I wanted to see if I could learn Java again and see if I could be comfortable. Like I was years ago.',
 			"This mod adds a backpack to the Create mod suite. It's a fantastic mod that just needed one more thing, a backpack!"
 		],
-		link: '#' // Replace with actual link
-	}
-	// Add more projects as needed
+		link: 'https://github.com/wyfyjohnson/backpackage' // Replace with actual link
+	},
+    {
+        project: 'wyfy-suite',
+        details: [
+            'This is a repository of my tech mod venture.',
+            "LibWyfy, IvaldiOS and DraupnirTech"
+        ],
+        link: 'https://github.com/wyfyjohnson/wyfy-suite'
+    }
 ];
 
 export const Links = [
