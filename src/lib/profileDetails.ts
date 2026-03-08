@@ -1,5 +1,5 @@
 import profile from '$lib/images/profile.webp';
-import { Github, Mail, ExternalLink } from 'lucide-svelte';
+import {Github, Mail, ExternalLink, Rss} from 'lucide-svelte';
 import CodebergIcon from '$lib/components/CodebergIcon.svelte';
 
 export const profilePicture = profile;
@@ -80,6 +80,11 @@ export const Links = [
 		url: 'https://github.com/wyfyjohnson', // Update with your username
 		icon: Github
 	},
+    {
+        name: 'RSS',
+        url: '/rss.xml',
+        icon: Rss
+    },
 	{
 		name: 'Email',
 		url: 'mailto:your.email@example.com', // Update with your email
