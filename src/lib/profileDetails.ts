@@ -14,9 +14,7 @@ export const Bio = `Welcome to my personal website! I write about software devel
 
 // Interests for scrolling marquee - customize with your interests!
 export const Interests = [
-	'Free &',
-	'Open Source',
-    'Software',
+	'FOSS',
     'Gentoo',
 	'NixOS',
 	'Linux',
